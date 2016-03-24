@@ -1,0 +1,26 @@
+<% include ./partials/header %>
+
+<div class="ui main text container segment">
+	<div class="ui huge header"><%= employee.name%></div>
+	<img class="ui avatar image" src="<%= employee.image%>">
+	<span><%= employee.title%></span>
+	<div class="ui message">
+
+		<ul class="list">
+			<li>Gender: <%= employee.sex%></li>
+			<li>Start Date: <%= employee.StartDate%></li>
+			<li>Office Phone: <%= employee.OfficePhone%></li>
+			<li>Cell Phone: <%= employee.cellPhone%></li>
+			<li>SMS: <%= employee.SMS%></li>
+			<li>Email: <%= employee.Email%></li>
+			<li>Manager: <%= employee.Manager%></li>
+		</ul>
+	</div>
+	<a class="ui blue button" href="/employee/<%= employee._id%>/edit">Edit</a>
+	<form id="delete" action="/employee/<%= employee._id%>?_method=DELETE" method="POST">
+		<button class="ui red button">Delete</button>
+	</form>
+
+</div>
+
+<% include ./partials/footer %>

@@ -1,0 +1,53 @@
+<h1>EDIT!!!<% include ./partials/header %>
+
+	<div class="ui main text container segment">
+		<div class="ui huge header">Edit <%= employee.name %>'s Information</div>
+		<form class="ui form" action="/employee/<%= employee._id %>?_method=PUT" method="POST">
+			<div class="field">
+				<label>Name</label>
+				<input type="text" name="employees[name]" value="<%= employee.name%>"> 
+			</div>
+			<div class="field">
+				<label>Image</label>
+				<input type="text" name="employees[image]" value="<%= employee.image%>">
+			</div>
+			<div class="field">
+				<label>Title</label>
+				<input type="text" name="employees[title]" value="<%= employee.title%>">
+			</div>
+			<div class="field">
+				<label>Sex</label>
+				<select class="ui dropdown" name="employees[sex]" value="<%= employee.sex%>">
+					<option value="">Gender</option>
+					<option value="1">Male</option>
+					<option value="0">Female</option>
+				</select>
+				cl		</div>
+				<div class="field">
+					<label>Date</label>
+					<input type="text" name="employees[StartDate]" value="<%= employee.StartDate.toDateString()%>">
+				</div>
+				<div class="field">
+					<label>OfficePhone</label>
+					<input type="text" name="employees[OfficePhone]" value="<%= employee.OfficePhone%>">
+				</div>
+				<div class="field">
+					<label>CellPhone</label>
+					<input type="text" name="employees[cellPhone]" value="<%= employee.cellPhone%>">
+				</div>
+				<div class="field">
+					<label>SMS</label>
+					<input type="text" name="employees[SMS]" value="<%= employee.SMS%>">
+				</div>
+				<div class="field">
+					<label>Email</label>
+					<input type="text" name="employees[Email]" value="<%= employee.Email%>">
+				</div>
+				<div class="field">
+					<label>Manager</label>
+					<input type="text" name="employees[Manager]" value="<%= employee.Manager%>">
+				</div>
+				<input class="ui inverted black button active" type="submit">
+			</form>
+		</div>
+	<% include ./partials/footer %></h1>

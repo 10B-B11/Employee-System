@@ -1,0 +1,50 @@
+<% include ./partials/header %>
+
+	<div class="ui main text container segment">
+		<div class="ui huge header">New Employee</div>
+		<form class="ui form" action="/employee" method="POST">
+			<div class="field">
+				<label>Name</label>
+				<input type="text" name="employees[name]" placeholder="Name"> 
+			</div>
+			<div class="field">
+				<label>Image</label>
+				<input type="text" name="employees[image]" placeholder="Image">
+			</div>
+			<div class="field">
+				<label>Title</label>
+				<input type="text" name="employees[title]" placeholder="Title">
+			</div>
+			<div class="field">
+				<label>Sex</label>
+				<select class="ui dropdown" name="employees[sex]">
+					<option value="">Gender</option>
+					<option value="1">Male</option>
+					<option value="0">Female</option>
+				</select>
+				</div>
+				
+				<div class="field">
+					<label>OfficePhone</label>
+					<input type="text" name="employees[OfficePhone]" placeholder="OfficePhone">
+				</div>
+				<div class="field">
+					<label>CellPhone</label>
+					<input type="text" name="employees[cellPhone]" placeholder="CellPhone">
+				</div>
+				<div class="field">
+					<label>SMS</label>
+					<input type="text" name="employees[SMS]" placeholder="SMS">
+				</div>
+				<div class="field">
+					<label>Email</label>
+					<input type="text" name="employees[Email]" placeholder="Email">
+				</div>
+				<div class="field">
+					<label>Manager</label>
+					<input type="text" name="employees[Manager]" placeholder="Manager">
+				</div>
+				<input class="ui inverted black button active" type="submit">
+			</form>
+		</div>
+	<% include ./partials/footer %>

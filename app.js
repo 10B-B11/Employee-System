@@ -3,12 +3,15 @@ methodOverride  = require("method-override"),
 bodyParser  	= require("body-parser"),
 mongoose    	= require("mongoose"),
 app 			= express();
+router          = express.Router();
 //APP CONFIG
 mongoose.connect("mongodb://localhost/restful_employee_app");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
+app.use("/api", router);
+
 
 
 //MONGOOSE/MODEL CONFIG
@@ -22,77 +25,148 @@ var employeeSchema = new mongoose.Schema({
 	cellPhone: Number,
 	SMS: Number,
 	Email: String,
-	Manager: String
+	Manager: { type : mongoose.Schema.Types.ObjectId,
+				ref : "Employee"
+			}
 });
-//RESTFUL ROUTES
+
 var Employee = mongoose.model("Employee", employeeSchema);
-app.get("/", function(req, res){
-	res.redirect("/employee");
-});
-app.get("/employee", function(req, res){
-	Employee.find({}, function(err, employees){
+//RESTFUL ROUTES
+
+// app.get("/", function(req, res){
+// 	res.redirect("/employee");
+// });
+// //FIND ROUTE
+// app.get("/employee", function(req, res){
+// 	Employee.find({}, function(err, employees){
+// 		if (err) {
+// 			console.log("ERROR");
+// 		} else {
+// 			res.render("index", {employees: employees});
+// 		}
+// 	});
+	
+// });
+
+// //NEW ROUTE
+// app.get("/employee/new", function(req, res){
+// 	res.render("new");
+// });
+// //CREATE ROUTE
+// app.post("/employee", function(req, res){
+// 	Employee.create(req.body.employees, function(err, newEmployee){
+// 		if (err){
+// 			res.render("new");
+// 		} else {
+// 			res.redirect("/employee");
+// 		}
+// 	});
+// });
+// //SHOW ROUTE
+// app.get("/employee/:id", function(req, res){
+// 	Employee.findById(req.params.id, function(err, foundEmployee){
+// 		if(err) {
+// 			res.redirect("/employee");
+// 		} else {
+// 			res.render("show",{employee:foundEmployee});
+// 		}
+// 	})
+// });
+// //EDIT ROUTE
+// app.get("/employee/:id/edit", function(req, res){
+// 	Employee.findById(req.params.id, function(err, foundEmployee){
+// 		if (err) {
+// 			res.redirect("employee");
+// 		} else {
+// 			res.render("edit", {employee:foundEmployee});
+// 		}
+// 	});
+// });
+// //UPDATE ROUTE
+// app.put("/employee/:id", function(req, res){
+// 	Employee.findByIdAndUpdate(req.params.id, req.body.employees, function(err, updateEmployee){
+// 		if (err) {
+// 			res.redirect("/employee");
+// 		} else{
+// 			res.redirect("/employee/" + req.params.id);
+// 		}
+// 	});
+// });
+// //DESTROY ROUTE
+// app.delete("/employee/:id", function(req, res){
+// 	Employee.findByIdAndRemove(req.params.id, function(err){
+// 		if(err){
+// 			res.redirect("/employee");
+// 		} else {
+// 			res.redirect("/employee");
+// 		}
+// 	})
+// });
+
+// API
+// show all employees
+router.route("/employee")
+.get(function(req, res){
+	Employee.find().populate("Manager", "name").exec(function(err, employees){
 		if (err) {
 			console.log("ERROR");
 		} else {
-			res.render("index", {employees: employees});
-		}
-	});
-	
-});
-//NEW ROUTE
-app.get("/employee/new", function(req, res){
-	res.render("new");
-});
-//CREATE ROUTE
-app.post("/employee", function(req, res){
-	Employee.create(req.body.employees, function(err, newEmployee){
-		if (err){
-			res.render("new");
-		} else {
-			res.redirect("/employee");
+			res.json({employees: employees});
 		}
 	});
 });
-//SHOW ROUTE
-app.get("/employee/:id", function(req, res){
+// show employee according id
+router.route("/employee/:id")
+.get(function(req, res){
 	Employee.findById(req.params.id, function(err, foundEmployee){
 		if(err) {
-			res.redirect("/employee");
+			res.json({ message : "this employee doesn't exist"});
 		} else {
-			res.render("show",{employee:foundEmployee});
+			res.json({employee:foundEmployee});
 		}
 	})
 });
-//EDIT ROUTE
-app.get("/employee/:id/edit", function(req, res){
-	Employee.findById(req.params.id, function(err, foundEmployee){
-		if (err) {
-			res.redirect("employee");
+//create a new employee
+router.route("/employee")
+.post(function(req, res){
+	Employee.create(req.body.employees, function(err, newEmployee){
+		if (err){
+			res.json({message : "can't add new employee"});
 		} else {
-			res.render("edit", {employee:foundEmployee});
+			res.json({message : "add new employee successfully!"});
 		}
 	});
 });
-//UPDATE ROUTE
-app.put("/employee/:id", function(req, res){
+//update an employee
+router.route("/employee/:id")
+.put(function(req, res){
 	Employee.findByIdAndUpdate(req.params.id, req.body.employees, function(err, updateEmployee){
 		if (err) {
-			res.redirect("/employee");
+			res.json({message : "can't update new employee"});
 		} else{
-			res.redirect("/employee/" + req.params.id);
+			res.json({message : "update employee successfully!"});
 		}
 	});
 });
-//DESTROY ROUTE
-app.delete("/employee/:id", function(req, res){
+//delete an employee
+router.route("/employee/:id")
+.delete(function(req, res){
 	Employee.findByIdAndRemove(req.params.id, function(err){
 		if(err){
-			res.redirect("/employee");
+			res.json({message : "can't delete new employee"});
 		} else {
-			res.redirect("/employee");
+			res.json({message : "delete employee successfully!"});
 		}
 	})
 });
+// get the manager name
+router.route("/employee/manager/:id/")
+.get(function(req, res){
+	Employee.find({Manager: req.params.id}, function(err, employees) {
+		res.json(employees);
+	})
+});
+
 app.listen(3000, function(){
 	console.log("START!!! ");
 });

@@ -3,7 +3,7 @@
 		<form novalidate class="ui form">
 			<div class="field">
 				<label>Name</label>
-				<input type="text" ng-model="employee.name" placeholder="Name" required> 
+				<input type="text" ng-model="employee.name" placeholder="Name" required=""> 
 			</div>
 			<div class="field">
 				<label>Image</label>
@@ -11,11 +11,11 @@
 			</div>
 			<div class="field">
 				<label>Title</label>
-				<input type="text" ng-model="employee.title" placeholder="Title">
+				<input type="text" ng-model="employee.title" placeholder="Title" required="">
 			</div>
 			<div class="field">
 				<label>Sex</label>
-				<select class="ui dropdown" ng-model="employee.sex">
+				<select class="ui dropdown" ng-model="employee.sex" required="">
 					<option value="">Gender</option>
 					<option value="1">Male</option>
 					<option value="0">Female</option>
@@ -24,7 +24,7 @@
 
 			<div class="field">
 				<label>OfficePhone</label>
-				<input type="text" ng-model="employee.OfficePhone" placeholder="OfficePhone">
+				<input type="text" ng-model="employee.OfficePhone" placeholder="OfficePhone" required="">
 			</div>
 			<div class="field">
 				<label>CellPhone</label>
@@ -36,7 +36,7 @@
 			</div>
 			<div class="field">
 				<label>Email</label>
-				<input type="email" ng-model="employee.Email" placeholder="Email">
+				<input type="email" ng-model="employee.Email" placeholder="Email" required="">
 			</div>
 			<div class="field">
 				<label>Manager</label>

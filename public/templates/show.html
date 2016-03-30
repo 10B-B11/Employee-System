@@ -1,1 +1,24 @@
-<h1>show</h1>
+<div class="ui main text container segment">
+	<div class="ui huge header">{{ employee.name }}</div>
+	<img class="ui avatar image" ng-src="{{ employee.image }}">
+	<span>{{ employee.name }}</span>
+	<div class="ui message">
+
+		<ul class="list">
+			<li>
+				Gender: <span ng-if="employee.sex == 1">male</span>
+						<span ng-if="employee.sex == 2">female</span>
+			</li>
+			<li>Start Date: {{employee.StartDate | date:'yyyy-MM-dd'}}</li>
+			<li>Office Phone: {{ employee.OfficePhone }}</li>
+			<li>Cell Phone: {{ employee.cellPhone }}</li>
+			<li>SMS: {{ employee.SMS }}</li>
+			<li>Email: {{ employee.Email }}</li>
+			<li ng-hide="employee._id == employee.Manager._id ">Manager: <a ng-href="#/show/{{employee.Manager._id}}"> {{ employee.Manager.name }} </a></li>
+			<li ng-hide="report_to.length == 0"> Report-to:<a ng-href="#/report/{{employee._id}}">  {{report_to.length }} </a></li>
+		</ul>
+	</div>
+	<a class="ui blue button" ng-href="/#/edit/{{ employee._id}}">Edit</a>
+	<button class="ui red button" ng-click="delete(employee._id)">Delete</button>
+
+</div>

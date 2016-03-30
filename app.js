@@ -6,7 +6,7 @@ app 			= express();
 router          = express.Router();
 //APP CONFIG
 mongoose.connect("mongodb://localhost/restful_employee_app");
-app.set("view engine", "ejs");
+//app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
@@ -31,6 +31,82 @@ var employeeSchema = new mongoose.Schema({
 });
 
 var Employee = mongoose.model("Employee", employeeSchema);
+
+
+// API
+// show all employees
+router.route("/employee")
+.get(function(req, res){
+	Employee.find().populate("Manager", "name").exec(function(err, employees){
+		if (err) {
+			console.log("ERROR");
+		} else {
+			res.json({employees: employees});
+		}
+	});
+});
+// show employee according id
+router.route("/employee/:id")
+.get(function(req, res){
+	Employee.findById(req.params.id).populate("Manager", "name").exec(function(err, foundEmployee){
+		if(err) {
+			res.json({ message : "this employee doesn't exist"});
+		} else {
+			res.json({employee: foundEmployee});
+		}
+	})
+});
+//create a new employee
+router.route("/employee")
+.post(function(req, res){
+	console.log(JSON.stringify(req.body));
+	Employee.create(req.body.employees, function(err, newEmployee){
+		if (err){
+			res.json({message : "can't add new employee"});
+		} else {
+			res.json({message : "add new employee successfully!"});
+		}
+	});
+});
+//update an employee
+router.route("/employee/:id")
+.put(function(req, res){
+	Employee.findByIdAndUpdate(req.params.id, req.body.employees, function(err, updateEmployee){
+		if (err) {
+			res.json({message : "can't update new employee"});
+		} else{
+			res.json({message : "update employee successfully!"});
+		}
+	});
+});
+//delete an employee
+router.route("/employee/:id")
+.delete(function(req, res){
+	Employee.findByIdAndRemove(req.params.id, function(err){
+		if(err){
+			res.json({message : "can't delete new employee"});
+		} else {
+			res.json({message : "delete employee successfully!"});
+		}
+	})
+});
+
+// get the manager name
+router.route("/employee/reports/:id")
+.get(function(req, res){
+	Employee.find({"Manager": req.params.id, "_id": {$ne: req.params.id}}, function(err, DirectReports) {
+		if (err) {
+			res.json({message : "can't find reports number"});
+		} else {
+			res.json({employees: DirectReports});
+		}
+	})
+});
+
+app.listen(3000, function(){
+	console.log("START!!! ");
+});
+
 //RESTFUL ROUTES
 
 // app.get("/", function(req, res){
@@ -102,71 +178,3 @@ var Employee = mongoose.model("Employee", employeeSchema);
 // 		}
 // 	})
 // });
-
-// API
-// show all employees
-router.route("/employee")
-.get(function(req, res){
-	Employee.find().populate("Manager", "name").exec(function(err, employees){
-		if (err) {
-			console.log("ERROR");
-		} else {
-			res.json({employees: employees});
-		}
-	});
-});
-// show employee according id
-router.route("/employee/:id")
-.get(function(req, res){
-	Employee.findById(req.params.id, function(err, foundEmployee){
-		if(err) {
-			res.json({ message : "this employee doesn't exist"});
-		} else {
-			res.json({employee:foundEmployee});
-		}
-	})
-});
-//create a new employee
-router.route("/employee")
-.post(function(req, res){
-	Employee.create(req.body.employees, function(err, newEmployee){
-		if (err){
-			res.json({message : "can't add new employee"});
-		} else {
-			res.json({message : "add new employee successfully!"});
-		}
-	});
-});
-//update an employee
-router.route("/employee/:id")
-.put(function(req, res){
-	Employee.findByIdAndUpdate(req.params.id, req.body.employees, function(err, updateEmployee){
-		if (err) {
-			res.json({message : "can't update new employee"});
-		} else{
-			res.json({message : "update employee successfully!"});
-		}
-	});
-});
-//delete an employee
-router.route("/employee/:id")
-.delete(function(req, res){
-	Employee.findByIdAndRemove(req.params.id, function(err){
-		if(err){
-			res.json({message : "can't delete new employee"});
-		} else {
-			res.json({message : "delete employee successfully!"});
-		}
-	})
-});
-// get the manager name
-router.route("/employee/manager/:id/")
-.get(function(req, res){
-	Employee.find({Manager: req.params.id}, function(err, employees) {
-		res.json(employees);
-	})
-});
-
-app.listen(3000, function(){
-	console.log("START!!! ");
-});

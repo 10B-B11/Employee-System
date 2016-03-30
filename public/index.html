@@ -9,10 +9,16 @@
 <body ng-app="EmployeeManagementSystem">
 	<div class="ui fixed inverted menu">
 		<div class="ui container">
-			<div class="header item"><i class="Sidebar icon"></i>Employee Management</div>
+			<div class="header item"><i class="Sidebar icon"></i><a ng-href="#/">Employee Management</a></div>
 		</div>
-		<a href="/" class="item">Employee</a>
-		<a href="/employee/new" class="item"><i class="Add User icon"></i>New</a>
+		<div class="ui search" style="margin-top:10px">
+			<div class="ui icon input">
+			<input class="prompt" type="text" placeholder="Search Employee">
+				<i class="search icon"></i>
+			</div>
+			<div class="results"></div>
+		</div>
+		<a href="/#/new" class="item"><i class="Add User icon"></i>New</a>
 	</div>
 
 	<div ng-view>
@@ -20,6 +26,20 @@
 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
+
+	<!--The following are main app -->
 	<script type="text/javascript" src="javascript/app.js"></script>
+
+	<!--The following are controllers -->
+	<script type="text/javascript" src="javascript/controllers/index-controller.js"></script>
+	<script type="text/javascript" src="javascript/controllers/edit-controller.js"></script>
+	<script type="text/javascript" src="javascript/controllers/new-controller.js"></script>
+	<script type="text/javascript" src="javascript/controllers/show-controller.js"></script>
+	<script type="text/javascript" src="javascript/controllers/report-controller.js"></script>
+	<!--The following are services-->
+	<script type="text/javascript" src="javascript/services/employee.js"></script>
+
+
+
 </body>
 </html>

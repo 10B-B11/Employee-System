@@ -1,1 +1,49 @@
-<h1>edit</h1>
+<div class="ui main text container segment">
+	<div class="ui huge header">Edit {{ employee.name }}'s Information</div>
+	<form class="ui form">
+		<div class="field">
+			<label>Name</label>
+			<input type="text" ng-model="employee.name" > 
+		</div>
+		<div class="field">
+			<label>Image</label>
+			<input type="text" ng-model="employee.image">
+		</div>
+		<div class="field">
+			<label>Title</label>
+			<input type="text" ng-model="employee.title">
+		</div>
+		<div class="field">
+			<label>Sex</label>
+			<select class="ui dropdown" ng-model="employee.sex">
+				<option value="1">Male</option>
+				<option value="2">Female</option>
+			</select>
+		</div>
+		<div class="field">
+			<label>Date</label>
+			<input type="text" ng-model="employee.StartDate">
+		</div>
+		<div class="field">
+			<label>OfficePhone</label>
+			<input type="text" ng-model="employee.OfficePhone">
+		</div>
+		<div class="field">
+			<label>CellPhone</label>
+			<input type="text" ng-model="employee.cellPhone">
+		</div>
+		<div class="field">
+			<label>SMS</label>
+			<input type="text" ng-model="employee.SMS">
+		</div>
+		<div class="field">
+			<label>Email</label>
+			<input type="text" ng-model="employee.Email">
+		</div>
+		<div class="field">
+			<label>Manager</label>
+			<input type="text" ng-model="employee.Manager.name">
+		</div>
+		<input class="ui inverted black button active" type="submit" ng-click="update(employee._id)">
+	</form>
+</div>

@@ -3,9 +3,9 @@ angular.module('EmployeeManagementSystem',['ngRoute'])
 	$routeProvider.
 	when('/', {
 		templateUrl: 'templates/home.html',
-		controller: 'indexController'
+		controller: 'indexController',
 	}).
-	when('/edit', {
+	when('/edit/:id', {
 		templateUrl: 'templates/edit.html',
 		controller: 'editController'
 	}).
@@ -13,11 +13,16 @@ angular.module('EmployeeManagementSystem',['ngRoute'])
 		templateUrl: 'templates/new.html',
 		controller: 'newController'
 	}).
-	when('/show', {
+	when('/show/:id', {
 		templateUrl: 'templates/show.html',
 		controller: 'showController'
+	}).
+	when('/report/:id', {
+		templateUrl: 'templates/home.html',
+		controller: 'reportController'
 	}).
 	otherwise({
 		redirectTo: '/index'
 	});
 }])
+

@@ -2,15 +2,15 @@ angular.module('EmployeeManagementSystem')
 .factory('Employee', ['$http', function($http){
 	return{
 		showAll: function() {
-			return $http.get('/api/employee');
+			return $http.get('/api/employee/');
 		},
 		show: function(id) {
 			return $http.get('/api/employee/' + id);
 		},
 		// Todo: it has bug
-		add: function(employees) {
-			console.log(employees);
-			return $http.post('/api/employee/', employees);
+		add: function(employee) {
+			console.log('service:' + JSON.stringify(employee));
+			return $http.post('/api/employee', {'employee': employee});
 		},
 		// Todo: it has bug
 		update: function(id, employee) {

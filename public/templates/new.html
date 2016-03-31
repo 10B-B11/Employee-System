@@ -21,7 +21,10 @@
 					<option value="0">Female</option>
 				</select>
 			</div>
-
+			<div class="field">
+				<label>Date</label>
+				<input type="date" ng-model="employee.StartDate">
+			</div>
 			<div class="field">
 				<label>OfficePhone</label>
 				<input type="text" ng-model="employee.OfficePhone" placeholder="OfficePhone" required="">
@@ -42,9 +45,8 @@
 				<label>Manager</label>
 				<select class="ui dropdown" ng-model="employee.Manager">
 					<option value="">Please select a manager</option>
-					<option value="manager._id" ng-repeat="manager in managers" >{{manager.name}}</option>
+					<option value="{{manager._id}}" ng-repeat="manager in managers" >{{manager.name}}</option>
 				</select>
-				<!-- <input type="text" ng-model="employee.Manager" placeholder="Manager"> -->
 			</div>
 			<input class="ui inverted black button active" type="submit" ng-click="add(employee)">
 		</form>

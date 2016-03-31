@@ -7,9 +7,10 @@ router          = express.Router();
 //APP CONFIG
 mongoose.connect("mongodb://localhost/restful_employee_app");
 //app.set("view engine", "ejs");
+//app.use(methodOverride("_method"));
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(methodOverride("_method"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // if we use json to transform, we must use this 
 app.use("/api", router);
 
 
@@ -59,8 +60,7 @@ router.route("/employee/:id")
 //create a new employee
 router.route("/employee")
 .post(function(req, res){
-	console.log(JSON.stringify(req.body));
-	Employee.create(req.body.employees, function(err, newEmployee){
+	Employee.create(req.body.employee, function(err, newEmployee){
 		if (err){
 			res.json({message : "can't add new employee"});
 		} else {
@@ -71,7 +71,7 @@ router.route("/employee")
 //update an employee
 router.route("/employee/:id")
 .put(function(req, res){
-	Employee.findByIdAndUpdate(req.params.id, req.body.employees, function(err, updateEmployee){
+	Employee.findByIdAndUpdate(req.params.id, req.body.employee, function(err, updateEmployee){
 		if (err) {
 			res.json({message : "can't update new employee"});
 		} else{

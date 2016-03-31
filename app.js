@@ -6,8 +6,8 @@ app 			= express();
 router          = express.Router();
 //APP CONFIG
 mongoose.connect("mongodb://localhost/restful_employee_app");
-//app.set("view engine", "ejs");
-//app.use(methodOverride("_method"));
+app.set("view engine", "ejs");
+app.use(methodOverride("_method"));
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // if we use json to transform, we must use this 

@@ -6,8 +6,8 @@
 
 		<ul class="list">
 			<li>
-				Gender: <span ng-if="employee.sex == 1">male</span>
-						<span ng-if="employee.sex == 2">female</span>
+				Gender: <span ng-if="employee.sex == 0">male</span>
+						<span ng-if="employee.sex == 1">female</span>
 			</li>
 			<li>Start Date: {{employee.StartDate | date:'yyyy-MM-dd'}}</li>
 			<li>Office Phone: {{ employee.OfficePhone }}</li>

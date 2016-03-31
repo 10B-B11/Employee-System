@@ -7,14 +7,13 @@ angular.module('EmployeeManagementSystem')
 		show: function(id) {
 			return $http.get('/api/employee/' + id);
 		},
-		// Todo: it has bug
 		add: function(employee) {
 			console.log('service:' + JSON.stringify(employee));
 			return $http.post('/api/employee', {'employee': employee});
 		},
 		// Todo: it has bug
 		update: function(id, employee) {
-			return $http.put('/api/employee/' + id, employee);
+			return $http.put('/api/employee/' + id, {'employee': employee});
 		},
 		remove: function(id) {
 			return $http.delete('/api/employee/' + id);

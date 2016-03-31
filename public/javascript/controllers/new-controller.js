@@ -1,10 +1,13 @@
 angular.module('EmployeeManagementSystem')
-.controller('newController', ['$scope', 'Employee', function($scope, Employee){
+.controller('newController', ['$scope', '$location', 'Employee', function($scope, $location,Employee){
 	$scope.add = function(employee) {
-		console.log('controller add:' + JSON.stringify(employee));
+		// bug for default image
+		if (employee.image === 'undefined') {
+			employee.image = 'default.png';
+		}
 		Employee.add(employee)
 		.success(function(data) {
-			console.log(data);
+			$location.path('/');
 		})
 	}
 

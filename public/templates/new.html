@@ -1,9 +1,10 @@
 	<div class="ui main text container segment">
 		<div class="ui huge header">New Employee</div>
-		<form novalidate class="ui form">
+		<form novalidate class="ui form" name="EmployeeForm">
 			<div class="field">
-				<label>Name</label>
-				<input type="text" ng-model="employee.name" placeholder="Name" required=""> 
+				<label>Name <span style="color:red" ng-show="EmployeeForm.name.$untouched || EmployeeForm.name.$dirty && EmployeeForm.name.$invalid"><span ng-show="EmployeeForm.name.$error.required">**************name is required</span></span></label>
+				<input type="text" name="name" ng-model="employee.name" placeholder="Name" required> 
+				<span ng-show="EmployeeForm.name.$error.required"> error</span>
 			</div>
 			<div class="field">
 				<label>Image</label>
@@ -11,14 +12,14 @@
 			</div>
 			<div class="field">
 				<label>Title</label>
-				<input type="text" ng-model="employee.title" placeholder="Title" required="required">
+				<input type="text" ng-model="employee.title" placeholder="Title" required>
 			</div>
 			<div class="field">
 				<label>Sex</label>
-				<select class="ui dropdown" ng-model="employee.sex" required="">
+				<select class="ui dropdown" ng-model="employee.sex" required>
 					<option value="">Gender</option>
-					<option value="1">Male</option>
-					<option value="0">Female</option>
+					<option value="0">Male</option>
+					<option value="1">Female</option>
 				</select>
 			</div>
 			<div class="field">
@@ -27,7 +28,7 @@
 			</div>
 			<div class="field">
 				<label>OfficePhone</label>
-				<input type="text" ng-model="employee.OfficePhone" placeholder="OfficePhone" required="">
+				<input type="text" ng-model="employee.OfficePhone" placeholder="OfficePhone">
 			</div>
 			<div class="field">
 				<label>CellPhone</label>
@@ -38,16 +39,16 @@
 				<input type="text" ng-model="employee.SMS" placeholder="SMS">
 			</div>
 			<div class="field">
-				<label>Email</label>
-				<input type="email" ng-model="employee.Email" placeholder="Email" required="">
+				<label>Email <span style="color:red" ng-show="EmployeeForm.email.$untouched || mployeeForm.email.$dirty && EmployeeForm.email.$invalid"><span ng-show="EmployeeForm.email.$error.required">***************emial address is required</span><span ng-show="EmployeeForm.email.$error.email">*****************illegal email address</span></span></label>
+				<input type="email" name="email" ng-model="employee.Email" placeholder="Email" required>
 			</div>
 			<div class="field">
 				<label>Manager</label>
-				<select class="ui dropdown" ng-model="employee.Manager">
+				<select name="manager" class="ui dropdown" ng-model="employee.Manager" required>
 					<option value="">Please select a manager</option>
 					<option value="{{manager._id}}" ng-repeat="manager in managers" >{{manager.name}}</option>
 				</select>
 			</div>
-			<input class="ui inverted black button active" type="submit" ng-click="add(employee)">
+			<input class="ui inverted black button active" type="submit" ng-disabled="EmployeeForm.name.$pristine || EmployeeForm.manager.$pristine|| EmployeeForm.name.$dirty && EmployeeForm.name.$invalid || EmployeeForm.email.$dirty && EmployeeForm.email.$invalid" ng-click="add(employee)">
 		</form>
 	</div>
